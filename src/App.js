@@ -23,7 +23,9 @@ class App extends Component {
       escapeRoomId: 1,
       puzzleLength: 4,
       scormVersion: "1.2",
-      embeddedInEscapp: false, ...window.state,
+      PUBLIC_URL: "./..",
+      embeddedInEscapp: false, 
+      ...window.state,
       template: null
     }
 
@@ -47,11 +49,12 @@ class App extends Component {
               <h1>{i18n.t(this.state.embeddedInEscapp ? "title":"settings")}</h1>
               <Config {...this.state} onConfigChange={(prop,value)=>{this.setState({[prop]:value}, this.preview)}}/>
               <div className="buttons">
-                {this.state.embeddedInEscapp && this.state.escapp ? <button type="submit">
+                {this.state.embeddedInEscapp ? <button type="submit">
                   <i className="material-icons">cloud_upload</i>{i18n.t("save")}
-                </button> : <button type="button" onClick={this.download.bind(this)}>
+                  </button> : null }
+                <button type="button" onClick={this.download.bind(this)}>
                   <i className="material-icons">cloud_download</i>{i18n.t("download")}
-                </button>}
+                </button>
               </div>
               <input type="hidden" id="configInput" name="config" value=""></input>
             </form>

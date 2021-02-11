@@ -8,7 +8,7 @@ export default class App extends Component {
 			{ name: "title", value: this.props.title, type: "text", callback: (e) => {this.props.onConfigChange("title", e.target.value)}},
 			{ name: "timeout", value: this.props.timeout, type: "number", min: 0, callback: (e) => {this.props.onConfigChange("timeout", parseInt(e.target.value))}},
 			{ name: "theme", value: this.props.theme, type: "select", options: ["cerulean", "journal", "sketchy", "darkly", "cyborg", "cosmo", "flatly", "lumen", "litera", "lux", "materia", "minty", "pulse", "sandstone", "simplex", "slate", "solar", "spacelab", "superhero", "united", "yeti"], callback: (e) => {this.props.onConfigChange("theme", e.target.value)}},
-			{ name: "mode", value: this.props.mode, type: "select", options:["Symbol", "AlphaNumeric", "Pattern", "CombinationLock", "Padlock"], callback: (e) => {
+			{ name: "mode", value: this.props.mode, type: "select", options:["Symbol", "AlphaNumeric", "Pattern", /* "CombinationLock", */ "Padlock"], callback: (e) => {
 				this.props.onConfigChange("mode", e.target.value);
 				if (this.props.embeddedInEscapp) {
 					const erId = this.props.escapeRoomId || this.props.erOptions[0].id;
@@ -73,7 +73,7 @@ export default class App extends Component {
 			
 		} else {
 			options.push({ name: "escapp", value: this.props.escapp, type: "checkbox", callback: () => {this.props.onConfigChange("escapp", !this.props.escapp)}});
-			options.push({ name: "showUsername", value: this.props.escapp ? false : this.props.showUsername , type: "checkbox", callback: (e) => {this.props.onConfigChange("showUsername", !this.props.showUsername,)}});
+			// options.push({ name: "showUsername", value: this.props.escapp ? false : this.props.showUsername , type: "checkbox", callback: (e) => {this.props.onConfigChange("showUsername", !this.props.showUsername,)}});
 			options.push({ name: "answer", value: this.props.answer, type: "text", callback: (e) => {this.props.onConfigChange("answer", e.target.value)}});
 			options.push({ name: "good", value: this.props.good, type: "text", callback: (e) => {this.props.onConfigChange("good", e.target.value)}});
 			options.push({ name: "bad", value: this.props.bad, type: "text", callback: (e) => {this.props.onConfigChange("bad", e.target.value)}});
@@ -106,16 +106,14 @@ export default class App extends Component {
 			</div>, opt.noBreak ? null: <br key={"br-"+i}/>] : null
 
 			})}
-			<br/>
-
-			<br/>
-			{this.props.embeddedInEscapp && this.props.escapp ? null : <div className="form-group">
+			
+			<div className="form-group">
 				<label htmlFor="scormVersion"><b>{i18n.t("scormVersion")}:</b></label><p/>
 				<label htmlFor="scormVersion">{"SCORM 1.2"}</label>
 				<input name="scormVersion" type="radio" value={"1.2"} checked={this.props.scormVersion === "1.2"} onChange={(e) => {this.props.onConfigChange("scormVersion", "1.2")}}/>
 				<label htmlFor="scormVersion">{"SCORM 2004"}</label>
 				<input name="scormVersion" type="radio" value={"1.2"} checked={this.props.scormVersion === "2004"} onChange={(e) => {this.props.onConfigChange("scormVersion", "2004")}}/>
-			</div>}
+			</div>
 		</div>
 	}
 

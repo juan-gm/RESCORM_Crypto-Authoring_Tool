@@ -76,7 +76,7 @@
 
 .App iframe {
   height:100%;
-  border: 1px solid #ddd;
+  border: 2px solid #ddd;
 }
 
 .App .config {
@@ -89,6 +89,7 @@
   min-height: 25px;
   display: inline-block;
   margin-right: 10px;
+  font-family: "Lato", sans-serif;
 }
 
 .App .config .form-group label {
@@ -136,7 +137,7 @@
 .App input[type="text"], .App input[type="number"], .App select  {
   padding: 5px;
   background-color: transparent;
-  border: 1px solid grey;
+  border: 2px solid grey;
 }
 
 .App select {
