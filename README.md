@@ -1,6 +1,6 @@
 # RESCORM Digital Lock - Authoring Tool
 
-By: [@adelabat](http://github.com/adelabat)
+By: [@juan-gm](http://github.com/juan-gm)
 
 This web application provides a web form to easily set up the [RESCORM Digital Lock app](http://github.com/adelabat/TFG). It allows to specify all the different fields that are included in the `config.js` file of said application without a need to build the application.
 By filling in the fields of the web form and clicking the download button, you can have your SCORM-compliant digital lock ready to deploy in your favorite learning managament system (LMS).

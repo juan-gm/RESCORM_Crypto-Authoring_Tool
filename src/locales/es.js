@@ -23,7 +23,8 @@ let es = {
             "good": "Mensaje de éxito",
             "bad": "Mensaje de error",
             "CombinationLockImage": "Imagen" ,
-            "nonMetallic": "Efecto metálico"    
+            "nonMetallic": "Efecto metálico",
+            "extra_mode_info": "Número de saltos o palabra a usar en el cifrado"
         },
         "Symbol": "Símbolo",
         "AlphaNumeric": "Alfanumérico",

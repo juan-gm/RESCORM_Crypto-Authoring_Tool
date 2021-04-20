@@ -8,8 +8,9 @@ export default class App extends Component {
 			{ name: "title", value: this.props.title, type: "text", callback: (e) => {this.props.onConfigChange("title", e.target.value)}},
 			{ name: "timeout", value: this.props.timeout, type: "number", min: 0, callback: (e) => {this.props.onConfigChange("timeout", parseInt(e.target.value))}},
 			{ name: "theme", value: this.props.theme, type: "select", options: ["cerulean", "journal", "sketchy", "darkly", "cyborg", "cosmo", "flatly", "lumen", "litera", "lux", "materia", "minty", "pulse", "sandstone", "simplex", "slate", "solar", "spacelab", "superhero", "united", "yeti"], callback: (e) => {this.props.onConfigChange("theme", e.target.value)}},
-			{ name: "mode", value: this.props.mode, type: "select", options:["Symbol", "AlphaNumeric", "Pattern", /* "CombinationLock", */ "Padlock"], callback: (e) => {
+			{ name: "mode", value: this.props.mode, type: "select", options:["Caesar", "Vigenere", "Columnar"], callback: (e) => {
 				this.props.onConfigChange("mode", e.target.value);
+				this.props.onConfigChange("extra_mode_info", e.target.value); // Cambiar aquí para que este bien.
 				if (this.props.embeddedInEscapp) {
 					const erId = this.props.escapeRoomId || this.props.erOptions[0].id;
 					const puzzle = this.props.puzzleOptions[erId][0];
@@ -17,12 +18,8 @@ export default class App extends Component {
 
 					this.props.onConfigChange("escapeRoomId", erId)
 					this.props.onConfigChange("puzzleId", puzzleId)
-					if (this.props.mode === "Padlock" || this.props.mode === "CombinationLock") {
-						this.props.onConfigChange("answer", puzzle.answer);
-					} else {
-						this.props.onConfigChange("puzzleLength", puzzle.answer.length);
-						this.props.onConfigChange("answer", undefined);
-					}
+					this.props.onConfigChange("puzzleLength", puzzle.answer.length);
+					this.props.onConfigChange("answer", undefined);
 				}
 			}},
 			{ name: "tip", value: this.props.tip, type: "text", callback: (e) => {this.props.onConfigChange("tip", e.target.value)}},
@@ -74,14 +71,11 @@ export default class App extends Component {
 		} else {
 			options.push({ name: "escapp", value: this.props.escapp, type: "checkbox", callback: () => {this.props.onConfigChange("escapp", !this.props.escapp)}});
 			// options.push({ name: "showUsername", value: this.props.escapp ? false : this.props.showUsername , type: "checkbox", callback: (e) => {this.props.onConfigChange("showUsername", !this.props.showUsername,)}});
+			options.push({ name: "extra_mode_info", value: this.props.extra_mode_info || 0, type: (this.props.mode === "Caesar" ? "number" : "text"), callback: (e) => {this.props.onConfigChange("extra_mode_info", e.target.value)}});
+
 			options.push({ name: "answer", value: this.props.answer, type: "text", callback: (e) => {this.props.onConfigChange("answer", e.target.value)}});
 			options.push({ name: "good", value: this.props.good, type: "text", callback: (e) => {this.props.onConfigChange("good", e.target.value)}});
 			options.push({ name: "bad", value: this.props.bad, type: "text", callback: (e) => {this.props.onConfigChange("bad", e.target.value)}});
-		}
-		if (this.props.mode === "CombinationLock") {
-			options.splice(5, 0, { name: "CombinationLockImage", value: undefined, type: "file", callback: (e) => {this.readFile(e.target.files[0], res => this.props.onConfigChange("CombinationLockImage", res),true) }});
-		} else if (this.props.mode === "Padlock") {
-			options.splice(5, 0, { name: "nonMetallic", value: !this.props.nonMetallic, type: "checkbox", callback: () => {this.props.onConfigChange("nonMetallic", !this.props.nonMetallic)}});
 		}
 
 

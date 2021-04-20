@@ -23,7 +23,8 @@ let en = {
             "good": "Success message",
             "bad": "Fail message",
             "CombinationLockImage": "Picture" ,
-            "nonMetallic": "Metallic effect"    
+            "nonMetallic": "Metallic effect",
+            "extra_mode_info": "Number of shifts or word to use for ciphering"
         },
         "Symbol": "Symbol",
         "AlphaNumeric": "Alphanumeric",
