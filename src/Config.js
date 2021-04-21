@@ -8,7 +8,7 @@ export default class App extends Component {
 			{ name: "title", value: this.props.title, type: "text", callback: (e) => {this.props.onConfigChange("title", e.target.value)}},
 			{ name: "timeout", value: this.props.timeout, type: "number", min: 0, callback: (e) => {this.props.onConfigChange("timeout", parseInt(e.target.value))}},
 			{ name: "theme", value: this.props.theme, type: "select", options: ["cerulean", "journal", "sketchy", "darkly", "cyborg", "cosmo", "flatly", "lumen", "litera", "lux", "materia", "minty", "pulse", "sandstone", "simplex", "slate", "solar", "spacelab", "superhero", "united", "yeti"], callback: (e) => {this.props.onConfigChange("theme", e.target.value)}},
-			{ name: "mode", value: this.props.mode, type: "select", options:["Caesar", "Vigenere", "Columnar"], callback: (e) => {
+			{ name: "mode", value: this.props.mode, type: "select", options:["Caesar", "Vigenere", "Transposition"], callback: (e) => {
 				this.props.onConfigChange("mode", e.target.value);
 				this.props.onConfigChange("extra_mode_info", e.target.value); // Cambiar aquí para que este bien.
 				if (this.props.embeddedInEscapp) {
@@ -87,7 +87,6 @@ export default class App extends Component {
 				<select name={opt.name} onChange={opt.callback} value={opt.value}>
 					{opt.options.map(op=>{
 						if (typeof op === "string") {
-
 							return <option key={op} value={op} >{i18n.t(op)}</option>
 						} else {
 							return <option key={op.id} value={op.id} >{op.name}</option>
