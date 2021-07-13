@@ -19,6 +19,18 @@ class App extends Component {
       good:"Enhorabuena, lo has logrado!!",
       bad:"Lo siento, se acabó tu tiempo",
       escapp: false,
+      escappConfig: {
+        endpoint:"https://escapp.dit.upm.es/api/escapeRooms/153",
+        localStorageKey:"ESCAPP_Cypher",
+        imagesPath:"assets/images/",
+        I18n:{
+          availableLocales:["es", "en"],
+          locale:"es",
+          defaultLocale:"es",
+        },
+        appPuzzleIds:[1],
+        forceValidation:false,
+      },
       puzzleId: 5,
       escapeRoomId: 1,
       puzzleLength: 4,
@@ -73,8 +85,13 @@ class App extends Component {
   }
 
   onSubmit(){
-    const {title, showUsername, timeout, tip, CombinationLockImage, mode, theme, good, bad, answer, escapp, puzzleId, escapeRoomId, puzzleLength, scormVersion, nonMetallic} = this.state;
-    const config = {title, showUsername, timeout, tip, CombinationLockImage, mode, theme, good, bad, answer, escapp, puzzleId, escapeRoomId, puzzleLength, scormVersion, nonMetallic};
+    const {title, showUsername, timeout, tip, mode, extra_mode_info, theme, good, bad, answer, escapp, escappConfig, puzzleId, escapeRoomId, puzzleLength, scormVersion, nonMetallic} = this.state;
+    let newURL = escappConfig.endpoint.replace(/\d+/, String(escapeRoomId));
+    escappConfig.endpoint = newURL;
+    escappConfig.appPuzzleIds[0] = puzzleId;
+
+    const config = {title, showUsername, timeout, tip, mode, extra_mode_info, theme, good, bad, answer, escapp, escappConfig, puzzleId, escapeRoomId, puzzleLength, scormVersion, nonMetallic};
+
     document.getElementById('configInput').value = JSON.stringify(config);
 
     return true;
@@ -84,7 +101,7 @@ class App extends Component {
       <div id='root'></div>
       <script>
         window._babelPolyfill = false;
-        window.config=JSON.parse('${JSON.stringify({...this.state, template:undefined, dev: true})}');
+        window.config=JSON.parse('${JSON.stringify({...this.state, preview: true, template:undefined, dev: true})}');
       </script>`)
     content = content.replace("bundle.js", process.env.PUBLIC_URL + "/scorm12/bundle.js")
     let el = document.getElementById('visor')

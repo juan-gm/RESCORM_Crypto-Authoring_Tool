@@ -26,17 +26,23 @@ function decode(input) {
 }
 
 function generateIndex(state) {
-    const {title, showUsername, timeout, tip, CombinationLockImage, mode, theme, good, bad, answer, escapp, puzzleId, escapeRoomId, puzzleLength, scormVersion, nonMetallic, PUBLIC_URL} = state;
-    const parsedState = JSON.stringify({title, showUsername, timeout, tip, CombinationLockImage, mode, theme, good, bad, answer, escapp, puzzleId, escapeRoomId, puzzleLength, scormVersion, nonMetallic, PUBLIC_URL: "http://localhost:3000" + PUBLIC_URL});
+    const {title, showUsername, timeout, tip, mode, extra_mode_info, theme, good, bad, answer, escapp, escappConfig, puzzleId, escapeRoomId, puzzleLength, scormVersion, nonMetallic, PUBLIC_URL} = state;
+    
+    let newURL = escappConfig.endpoint.replace(/\d+/, String(escapeRoomId));
+    escappConfig.endpoint = newURL;
+    escappConfig.appPuzzleIds[0] = puzzleId;
+
+    const parsedState = JSON.stringify({title, showUsername, timeout, tip, mode, extra_mode_info, theme, good, bad, answer, escapp, escappConfig, puzzleId, escapeRoomId, puzzleLength, scormVersion, nonMetallic, PUBLIC_URL: "http://localhost:3000" + PUBLIC_URL});
     return `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>${title || "Digital Lock"}</title>
+    <title>${title || "Escape Room"}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
         rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="./assets/escapp.css">
+        <script type="text/javascript" src="./assets/escapp.js"></script>
  </head>
 <body>
 <div id="root"></div>

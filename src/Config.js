@@ -18,11 +18,12 @@ export default class App extends Component {
 
 					this.props.onConfigChange("escapeRoomId", erId)
 					this.props.onConfigChange("puzzleId", puzzleId)
-					this.props.onConfigChange("puzzleLength", puzzle.answer.length);
 					this.props.onConfigChange("answer", undefined);
 				}
 			}},
 			{ name: "tip", value: this.props.tip, type: "text", callback: (e) => {this.props.onConfigChange("tip", e.target.value)}},
+			{ name: "extra_mode_info", value: this.props.extra_mode_info || 0, type: (this.props.mode === "Caesar" ? "number" : "text"), callback: (e) => {this.props.onConfigChange("extra_mode_info", e.target.value)}},
+			{ name: "answer", value: this.props.answer, type: "text", callback: (e) => {this.props.onConfigChange("answer", e.target.value)}},
 		];
 
 
@@ -39,7 +40,6 @@ export default class App extends Component {
 					if (this.props.mode === "Padlock" || this.props.mode === "CombinationLock") {
 						this.props.onConfigChange("answer", puzzle.answer);
 					} else {
-						this.props.onConfigChange("puzzleLength", puzzle.answer.length);
 						this.props.onConfigChange("answer", undefined);
 
 					}
@@ -52,28 +52,17 @@ export default class App extends Component {
 					if (this.props.mode === "Padlock" || this.props.mode === "CombinationLock") {
 						this.props.onConfigChange("answer", puzzle.answer);
 					} else {
-						this.props.onConfigChange("puzzleLength", puzzle.answer.length);
 						this.props.onConfigChange("answer", undefined);
-
 					}
 				}});
 			} else {
 				options.push({ name: "escapeRoomId", value: this.props.escapeRoomId, type: "number", min: 0, callback: (e) => {this.props.onConfigChange("escapeRoomId", parseInt(e.target.value))}})
 				options.push({ name: "puzzleId", value: this.props.puzzleId, type: "number", min: 0, callback: (e) => {this.props.onConfigChange("puzzleId", parseInt(e.target.value))}})
-				if (this.props.mode === "Padlock" || this.props.mode === "CombinationLock") {
-					options.push({ name: "answer", value: this.props.answer, type: "text", callback: (e) => {this.props.onConfigChange("answer", e.target.value)}});
-				} else {
-					options.push({ name: "puzzleLength", value: this.props.puzzleLength, type: "number", min: 0, callback: (e) => {this.props.onConfigChange("puzzleLength", parseInt(e.target.value))}})
-					
-				}
 			}
 			
 		} else {
 			options.push({ name: "escapp", value: this.props.escapp, type: "checkbox", callback: () => {this.props.onConfigChange("escapp", !this.props.escapp)}});
 			// options.push({ name: "showUsername", value: this.props.escapp ? false : this.props.showUsername , type: "checkbox", callback: (e) => {this.props.onConfigChange("showUsername", !this.props.showUsername,)}});
-			options.push({ name: "extra_mode_info", value: this.props.extra_mode_info || 0, type: (this.props.mode === "Caesar" ? "number" : "text"), callback: (e) => {this.props.onConfigChange("extra_mode_info", e.target.value)}});
-
-			options.push({ name: "answer", value: this.props.answer, type: "text", callback: (e) => {this.props.onConfigChange("answer", e.target.value)}});
 			options.push({ name: "good", value: this.props.good, type: "text", callback: (e) => {this.props.onConfigChange("good", e.target.value)}});
 			options.push({ name: "bad", value: this.props.bad, type: "text", callback: (e) => {this.props.onConfigChange("bad", e.target.value)}});
 		}
